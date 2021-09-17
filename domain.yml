@@ -1,0 +1,115 @@
+version: '2.0'
+config:
+  store_entities_as_slots: true
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+intents:
+- greet:
+    use_entities: true
+- goodbye:
+    use_entities: true
+- affirm:
+    use_entities: true
+- deny:
+    use_entities: true
+- bot_challenge:
+    use_entities: true
+- say_something:
+    use_entities: true
+- intent_what_without_code:
+    use_entities: true
+- intent_with_code:
+    use_entities: true
+- intent_language:
+    use_entities: true
+- out_of_scope:
+    use_entities: true
+- nlu_fallback:
+    use_entities: true
+entities:
+- code
+- what
+- language
+- name
+slots:
+  what:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  code:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  language:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  requested_slot:
+    type: rasa.shared.core.slots.UnfeaturizedSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+responses:
+  utter_greet:
+  - text: Hey! i'm Neha DC/IH Bot, How may i assist you?
+  utter_cheer_up:
+  - image: https://i.imgur.com/nGF1K8f.jpg
+    text: 'Here is something to cheer you up:'
+  utter_did_that_help:
+  - text: Did that help you?
+  utter_happy:
+  - text: Great, carry on!
+  utter_goodbye:
+  - text: Bye
+  utter_iamabot:
+  - text: I am a EBD Bot.
+  utter_ask_code:
+  - text: If possible, Can you share the material number or typecode?
+  utter_ask_what:
+  - buttons:
+    - payload: /intent_what_without_code{{"what":"cad"}}
+      title: CAD
+    - payload: /intent_what_without_code{{"what":"sheet"}}
+      title: Data Sheet
+    text: 'For Code: {code}, What type of information do you need?'
+  utter_link:
+  - text: Here you go - [{link}]({link})
+  utter_cadlink:
+  - text: Here you go - [Download]({link})
+  utter_something_else:
+  - text: Can i help you with something else?
+  utter_details_thanks:
+  - text: 'Your {cad} for Code: {code} is getting ready!!!'
+  utter_ask_rephrase:
+  - text: I'm sorry, I didn't quite understand that. Could you rephrase?
+  utter_default:
+  - text: Sorry, I didn't get that 🤷. Could you please rephrase?
+  - text: I didn't understand, could you rephrase that?
+  - text: I'm sorry, but I didn't understand you. Could you please rephrase what you just said?
+  - text: I'm afraid I didn't get what you just said. Could you rephrase that?
+  - text: I didn't quite get that, could you rephrase your message?
+  - text: Could you rephrase your message? I didn't get it, I'm sorry.
+  utter_out_of_scope:
+  - text: Sorry, We can't process your request.
+actions:
+- action_submit
+- validate_cad_form
+- action_button
+- action_ask_language
+forms:
+  cad_form:
+    required_slots:
+      code:
+      - entity: code
+        type: from_entity
+      language:
+      - entity: language
+        type: from_entity
+      what:
+      - entity: what
+        type: from_entity
+e2e_actions: []
