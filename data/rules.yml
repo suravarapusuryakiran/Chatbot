@@ -1,0 +1,46 @@
+version: "2.0"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: Activate form without code
+  steps:
+  - intent: intent_what_without_code
+  - action: cad_form
+  - active_loop: cad_form
+
+- rule: Activate form without what
+  steps:
+  - intent: intent_with_code
+  - action: cad_form
+  - active_loop: cad_form
+
+- rule: Submit form
+  condition:
+  - active_loop: cad_form
+  steps:
+  - action: cad_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_submit    
+
+- rule: out-of-scope
+  steps:
+  - intent: out_of_scope
+  - action: utter_out_of_scope   
+
+- rule: Two-Stage-Fallback
+  steps:
+  - intent: nlu_fallback
+  - action: action_two_stage_fallback
+  - active_loop: action_two_stage_fallback
