@@ -1,12 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Jun 25 13:15:32 2021
 
-@author: richlink
-
-website: http://si0vmc1343.de.bosch.com:8080/Thingworx/Runtime/index.html#mashup=GeneralSearch
-
-"""
 
 import os
 from tests.cookie_test import get_pw_session
