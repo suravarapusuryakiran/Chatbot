@@ -1,0 +1,12 @@
+version: "2.0"
+nlu:
+  - lookup: code
+    examples: |
+      - cytropac
+      - cgt3
+      - pgh4
+      - 4wrpeh
+      - 4wrpeh 6-3x
+      - ZDBT
+      - DBT
+      - HAD0
